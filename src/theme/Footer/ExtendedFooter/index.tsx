@@ -27,7 +27,6 @@ export default function ExtendedFooter() {
 
     const externalLocale = useLocaleMap(internalLocale);
     const data = usePluginData("docusaurus-plugin-navdata") as {
-        socialMedia: Array<ISocialMedia>;
         navData: Array<INavData>;
         footerTree: Array<any>;
         footerData: Array<IFooterData>;
@@ -88,7 +87,7 @@ export default function ExtendedFooter() {
                         <div className={styles.footer_container_upperData}>
                             <div className={styles.footer_container_upperData_social}>
                                 {footerData && footerData.title && <h2>{footerData.title}</h2>}
-                                <SocialMedia socialMedia={data?.socialMedia} />
+                                <SocialMedia socialMedia={footerData?.social_media} />
                                 {footerData && footerData.description && (
                                     <p className={`${styles.footer_container_upperData_social_description} primaryParagraph`}>{footerData.description}</p>
                                 )}

@@ -1,5 +1,6 @@
 import IFooterColumn from './footerColumn';
 import ILink from './link';
+import ISocialMedia from './socialMedia';
 
 export default interface IFooterData {
   columns: Array<IFooterColumn>;
@@ -10,4 +11,5 @@ export default interface IFooterData {
   title: string;
   description: string;
   manage_cookies_text: string;
+  social_media: ISocialMedia[];
 }

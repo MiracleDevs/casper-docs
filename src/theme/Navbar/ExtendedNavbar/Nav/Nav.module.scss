@@ -1,24 +1,19 @@
 @use "../../../../assets/scss/mixins";
-@import "../../../../assets/scss/mixins";
+@use "../../../../assets/scss/variables/media-queries";
 
+@import "../../../../assets/scss/mixins";
 .navbar_list {
     height: 55px;
-    width: 25%;
     max-height: 55px;
-    min-width: 490px;
-
     font-size: 16px;
     line-height: 24px;
     letter-spacing: 0.05em;
     text-transform: capitalize;
     overflow-x: scroll;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5%;
     text-decoration: none;
     text-transform: none;
+    min-width: 490px;
     @include mixins.custom_scrollbar(var(--black) var(--casperWhite));
 
     &::-webkit-scrollbar {
@@ -26,22 +21,26 @@
         height: 4px;
     }
 
+    > .listWrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0 auto;
+        gap: 25px;
+        width: fit-content;
+    }
+
     .navbar_list_container {
         position: relative;
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 5%;
-
         .navbar_list_container_button {
             position: relative;
+
             .navbar_list_item {
                 position: relative;
                 display: flex;
                 flex-direction: row;
-                justify-content: center;
                 align-items: center;
                 gap: 6px;
                 padding: 0;
@@ -58,31 +57,52 @@
                 }
 
                 > svg {
+                    width: 12px;
+                    height: 12px;
                     transition: transform 0.15s ease;
+
+                    path {
+                        fill: var(--casperWhite);
+                    }
                 }
 
                 &.isActive {
-                    @include transition(0.3s all);
+                    @include mixins.transition(0.3s all);
                     color: var(--casperRed);
 
                     > svg {
                         path {
-                            @include transition(0.3s all);
+                            @include mixins.transition(0.3s all);
                             fill: var(--casperRed);
                         }
+
                         transform: rotate(180deg);
                     }
                 }
             }
+
             &:hover {
                 .navbar_list_item {
-                    @include transition(0.3s all);
+                    @include mixins.transition(0.3s all);
                     color: var(--casperRed);
-                    > svg {
-                        path {
-                            @include transition(0.3s all);
-                            fill: var(--casperRed) !important;
-                        }
+                }
+
+                svg {
+                    path {
+                        @include mixins.transition(0.3s all);
+                        fill: var(--casperRed);
+                    }
+                }
+            }
+
+            &:not(:hover) {
+                .navbar_list_item {
+                    @include mixins.transition(calc(var(--transition-time) * 2) all);
+                }
+
+                svg {
+                    path {
+                        @include mixins.transition(calc(var(--transition-time) * 2) all);
                     }
                 }
             }
@@ -90,26 +110,28 @@
     }
 }
 
-.fullWidth {
-    width: 100%;
-}
-
-@media (max-width: 996px) {
+@media #{media-queries.$mobile} {
     .navbar_list {
-        width: 100%;
         min-width: 200px;
-        height: unset;
-        max-height: unset;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
         gap: 20px;
+        height: unset;
+        max-height: unset;
+
+        > .listWrapper {
+            flex-direction: column;
+            margin: unset;
+            align-items: flex-start;
+        }
         .navbar_list_container {
             .navbar_list_container_button {
                 width: 100%;
+
                 .navbar_list_item {
                     width: 100%;
-                    justify-content: space-between;
+                    background-color: var(--liftedBlack);
                     z-index: 5;
                 }
             }

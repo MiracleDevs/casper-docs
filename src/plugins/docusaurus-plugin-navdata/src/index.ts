@@ -8,6 +8,7 @@ import {
 import convertData from './convertData';
 import IFooterData from './interfaces/navbar/footerData';
 import ISocialMedia from './interfaces/navbar/socialMedia';
+//import ISocialMedia from "./interfaces/navbar/socialMedia";
 
 // import imageToBase64 from 'image-to-base64';
 
@@ -45,19 +46,24 @@ const navDataLoader = (
         JSON.stringify({ query })
       );
       const json = await response.json();
-
       const data = convertData(json);
       const promises = [];
-
-      for (const media of data.socialMedia) {
-        promises.push(loadSocialMediaImages(media, httpClient, directusUrl));
-      }
       for (const navData of data.navTree) {
         promises.push(loadLogos(navData, httpClient, directusUrl));
+        for (const socialMedia of navData.social_media) {
+          promises.push(
+            loadSocialMediaImages(socialMedia, httpClient, directusUrl)
+          );
+        }
       }
 
       for (const footerData of data.footerData) {
         promises.push(loadFooterLogos(footerData, httpClient, directusUrl));
+        for (const socialMedia of footerData.social_media) {
+          promises.push(
+            loadSocialMediaImages(socialMedia, httpClient, directusUrl)
+          );
+        }
       }
 
       await Promise.all(promises);

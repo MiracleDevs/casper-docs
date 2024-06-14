@@ -33,31 +33,33 @@ function Nav({ dropdownParentRef, header, handleClick, dropdownOpen, current, lo
     return (
         <>
             <nav className={styles.navbar_list} ref={dropdownParentRef}>
-                {header?.navigation_tree.items.map((item: any, i: number) => {
-                    return (
-                        <div className={styles.fullWidth} key={`navItem_${i}`}>
-                            <div className={styles.navbar_list_container} id={`container_${i}`}>
-                                <div className={styles.navbar_list_container_button}>
-                                    <button
-                                        id={`navItem_${i}`}
-                                        onClick={() => {
-                                            handleClick(item?.title || "");
-                                            setLeft(getLeft(`container_${i}`));
-                                        }}
-                                        className={`${styles.navbar_list_item} ${item?.title === current ? styles.isActive : ""}`}
-                                        tabIndex={0}
-                                    >
-                                        <span>{item.title}</span>
-                                        {icons.chevronDown}
-                                    </button>
+                <div className={styles.listWrapper}>
+                    {header?.navigation_tree.items.map((item: any, i: number) => {
+                        return (
+                            <div className={styles.fullWidth} key={`navItem_${i}`}>
+                                <div className={styles.navbar_list_container} id={`container_${i}`}>
+                                    <div className={styles.navbar_list_container_button}>
+                                        <button
+                                            id={`navItem_${i}`}
+                                            onClick={() => {
+                                                handleClick(item?.title || "");
+                                                setLeft(getLeft(`container_${i}`));
+                                            }}
+                                            className={`${styles.navbar_list_item} ${item?.title === current ? styles.isActive : ""}`}
+                                            tabIndex={0}
+                                        >
+                                            <span>{item.title}</span>
+                                            {icons.chevronDown}
+                                        </button>
+                                    </div>
                                 </div>
+                                <CSSTransition in={isCurrent(item!)} timeout={500} classNames="transition" unmountOnExit>
+                                    <NavBarDropdown left={left} content={item ?? undefined} closeNavBarHandler={closeNavBarHandler} locale={locale} />
+                                </CSSTransition>
                             </div>
-                            <CSSTransition in={isCurrent(item!)} timeout={500} classNames="transition" unmountOnExit>
-                                <NavBarDropdown left={left} content={item ?? undefined} closeNavBarHandler={closeNavBarHandler} locale={locale} />
-                            </CSSTransition>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </nav>
         </>
     );

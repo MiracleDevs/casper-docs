@@ -47,7 +47,6 @@ export default function ExtendedNavbar() {
     useFocusTrap(navBarRef, "a[href], button:not([disabled]), input", dropdownOpen, dropdownContent);
 
     const data = usePluginData("docusaurus-plugin-navdata") as {
-        socialMedia: Array<ISocialMedia>;
         navTree: any;
         footerData: Array<IFooterData>;
     };
@@ -68,7 +67,6 @@ export default function ExtendedNavbar() {
             currentContent && setDropdown(currentContent);
         }
     };
-
     const setDropdown = (currentContent: INavItem) => {
         if (!dropdownOpen) setDropdownOpen(true);
 
@@ -124,7 +122,6 @@ export default function ExtendedNavbar() {
             return `${url}/${externalLocale}/${truncatedPath}`;
         }
     };
-
     return (
         <>
             {navTree && (
@@ -161,7 +158,7 @@ export default function ExtendedNavbar() {
                                         siteUrl={siteConfig.customFields.siteUrl as string}
                                     />
                                 )}
-                                {data && data.socialMedia && <SocialMedia socialMedia={data.socialMedia} />}
+                                {navTree && navTree.social_media && <SocialMedia socialMedia={navTree.social_media} />}
                                 <ThemeSwitch />
                             </div>
                             <div className={`${styles.navbar} ${styles.mobile} navBar`}>
@@ -191,7 +188,7 @@ export default function ExtendedNavbar() {
                             dropdownOpen={dropdownOpen}
                             current={current}
                             siteConfig={siteConfig}
-                            socialMedia={data?.socialMedia}
+                            socialMedia={navTree?.social_media}
                             closeNavBarHandler={closeNavBarHandler}
                         />
                     </div>

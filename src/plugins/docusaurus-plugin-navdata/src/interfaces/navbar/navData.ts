@@ -1,4 +1,5 @@
 import INavItem from './navItem';
+import ISocialMedia from './socialMedia';
 
 export default interface INavData {
   navItems: Array<INavItem>;
@@ -7,4 +8,5 @@ export default interface INavData {
   searchPlaceholder: string;
   logoId: string;
   logo: string;
+  social_media: ISocialMedia[];
 }

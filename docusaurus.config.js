@@ -104,7 +104,7 @@ module.exports = {
                 directusGraphqlUrl: process.env.DIRECTUS_GRAPHQL_URL,
                 directusToken: process.env.DIRECTUS_TOKEN,
                 query:
-                    "query { header { translations { languages_code { code } login_text search_placeholder logo { id } navigation_tree } } social_media { name url icon { id } } footer { translations { title description manage_cookies_text logo { id title } bottom_links { link_id { title type url open_in_new_tab } } languages_code { code } footer_tree }}}",
+                    "query { header { translations { languages_code { code } login_text search_placeholder logo { id } navigation_tree social_media { social_media_id { name url icon { id } } } } } footer { translations { title description manage_cookies_text logo { id title } bottom_links { link_id { title type url open_in_new_tab } } languages_code { code } footer_tree social_media { social_media_id { name url icon { id } } } }}}",
             },
         ],
         [
